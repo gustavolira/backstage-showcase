@@ -1,0 +1,64 @@
+name: allure-typescript-mocha
+
+on:
+  push:
+    branches: [gh-actions, master]
+  pull_request:
+    branches: [gh-actions, master]
+
+jobs:
+  autotests:
+    name: Generate Allure Report
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.42.1-jammy
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+
+      - name: Install dependencies (npm ci or npm install)
+        run: |
+          if [ ${{ steps.check-lock-file.outputs.exists }} == "true" ]; then
+            npm ci
+          else
+            echo "package-lock.json not found, running npm install instead"
+            npm install
+          fi
+        working-directory: ./e2e-tests
+
+      - name: Run your tests
+        run: npx playwright test
+        working-directory: ./e2e-tests
+        continue-on-error: true
+        env:
+          HOME: /root
+
+      - name: Get Allure history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Allure Report action from marketplace
+        uses: simple-elf/allure-report-action@v1.8
+        if: always()
+        #id: allure-report
+        with:
+          allure_results: allure-results
+          #gh_pages: gh-pages
+          #allure_report: allure-report
+          allure_history: allure-history
+
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history
