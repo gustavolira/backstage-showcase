@@ -43,7 +43,7 @@ jobs:
         if: always()
         continue-on-error: true
         with:
-          ref: gh-pages
+          ref: gh-actions
           path: gh-pages
       - name: Allure Report with history
         uses: simple-elf/allure-report-action@v1.8
