@@ -40,11 +40,13 @@ jobs:
           HOME: /root
       - name: Convert to Allure report
         run: npx allure generate
+        if: always()
         working-directory: ./e2e-tests
         env:
           HOME: /root
       - name: Allure Report with history
         uses: simple-elf/allure-report-action@v1.8
+        if: always()
         with:
           allure_results: allure-results
           gh_pages: gh-pages
