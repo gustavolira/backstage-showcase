@@ -38,6 +38,13 @@ jobs:
         working-directory: ./e2e-tests
         env:
           HOME: /root
+      - name: Get Allure history
+        uses: actions/checkout@v2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
       - name: Allure Report with history
         uses: simple-elf/allure-report-action@v1.8
         if: always()
