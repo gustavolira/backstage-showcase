@@ -38,12 +38,6 @@ jobs:
         working-directory: ./e2e-tests
         env:
           HOME: /root
-      - name: Convert to Allure report
-        run: npx allure generate
-        if: always()
-        working-directory: ./e2e-tests
-        env:
-          HOME: /root
       - name: Allure Report with history
         uses: simple-elf/allure-report-action@v1.8
         if: always()
@@ -51,7 +45,7 @@ jobs:
           allure_results: allure-results
           gh_pages: gh-pages
           allure_report: allure-report
-          allure_history: allure-report/history
+          allure_history: allure-history
       - name: Deploy report to Github Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v2
