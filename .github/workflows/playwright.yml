@@ -33,13 +33,6 @@ jobs:
             npm install
           fi
         working-directory: ./e2e-tests
-      - name: Get Allure history
-        uses: actions/checkout@v2
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
       - name: Run your tests
         run: npx playwright test
         working-directory: ./e2e-tests
