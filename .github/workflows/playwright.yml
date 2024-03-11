@@ -59,7 +59,7 @@ jobs:
         env:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: allure-report/history
+          PUBLISH_DIR: allure-history
       - name: Post the link to the report
         if: always()
         uses: Sibz/github-status-action@v1
