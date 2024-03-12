@@ -60,6 +60,7 @@ jobs:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: e2e-tests/allure-history
+          keep_files: true
       - name: Post the link to the report
         if: always()
         uses: Sibz/github-status-action@v1
