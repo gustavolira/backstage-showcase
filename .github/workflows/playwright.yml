@@ -20,15 +20,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - name: Check for package-lock.json
-        id: check-lock-file
-        run: |
-          if [ ! -f ./e2e-tests/package-lock.json ]; then
-            echo "::set-output name=exists::false"
-          else
-            echo "::set-output name=exists::true"
-          fi
-        working-directory: ./e2e-tests
+#      - name: Check for package-lock.json
+#        id: check-lock-file
+#        run: |
+#          if [ ! -f ./e2e-tests/package-lock.json ]; then
+#            echo "::set-output name=exists::false"
+#          else
+#            echo "::set-output name=exists::true"
+#          fi
+#        working-directory: ./e2e-tests
       - name: Install dependencies (npm ci or npm install)
         run: |
           if [ ${{ steps.check-lock-file.outputs.exists }} == "true" ]; then
