@@ -8,8 +8,8 @@ jobs:
   playwright:
     name: 'Playwright Tests'
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.42.1-jammy
+#    container:
+#      image: mcr.microsoft.com/playwright:v1.42.1-jammy
     steps:
       - uses: actions/checkout@v4
         if: always()
