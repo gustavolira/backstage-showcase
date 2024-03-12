@@ -28,7 +28,7 @@ jobs:
           else
             echo "::set-output name=exists::true"
           fi
-        working-directory: ./
+        working-directory: ./e2e-tests
       - name: Install dependencies (npm ci or npm install)
         run: |
           if [ ${{ steps.check-lock-file.outputs.exists }} == "true" ]; then
