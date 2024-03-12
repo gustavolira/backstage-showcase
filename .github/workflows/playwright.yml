@@ -41,15 +41,7 @@ jobs:
       - name: Run your tests
         run: npx playwright test
         working-directory: ./e2e-tests
-#        env:
-#          HOME: /root
-      #      - name: Get Allure history
-      #        uses: actions/checkout@v2
-      #        if: always()
-      #        continue-on-error: true
-      #        with:
-      #          ref: gh-pages
-      #          path: gh-pages
+        continue-on-error: true
 
       - uses: actions/upload-artifact@master
         with:
