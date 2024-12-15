@@ -15,7 +15,10 @@ cleanup() {
   rm -rf ~/tmpbin
 }
 
-trap cleanup EXIT INT ERR
+#trap cleanup EXIT INT ERR
+
+JOB_NAME=periodic-aks
+TAG_NAME=next
 
 SCRIPTS=(
     "env_variables.sh"
