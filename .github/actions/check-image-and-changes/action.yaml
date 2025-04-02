@@ -35,14 +35,27 @@ runs:
         echo "Changed files:"
         echo "$CHANGED_FILES"
 
-        # Check if changes are ONLY in non-essential directories
-        # If ALL changes are in these directories, changes are not relevant
-        if [ -n "$CHANGED_FILES" ] && ! echo "$CHANGED_FILES" | grep -vqE '^(e2e|doc|docs|\.ibm)/'; then
-          echo "Changes detected only in non-essential directories (e2e, doc, docs, .ibm)."
-          echo "relevant=false" >> $GITHUB_OUTPUT
-        else
+        # Flag to track if we found any relevant changes
+        RELEVANT_CHANGES=false
+
+        # Check each file to see if it's in a non-essential directory
+        while IFS= read -r file; do
+          if [[ -n "$file" ]]; then
+            # If file is NOT in one of the non-essential directories, mark as relevant
+            if ! [[ "$file" =~ ^(e2e|e2e-tests|doc|docs|\.ibm)/ ]]; then
+              echo "Relevant change detected: $file"
+              RELEVANT_CHANGES=true
+              break
+            fi
+          fi
+        done <<< "$CHANGED_FILES"
+
+        if [[ "$RELEVANT_CHANGES" == "true" ]]; then
           echo "Relevant changes detected outside of non-essential directories."
           echo "relevant=true" >> $GITHUB_OUTPUT
+        else
+          echo "Changes detected only in non-essential directories (e2e, e2e-tests, doc, docs, .ibm)."
+          echo "relevant=false" >> $GITHUB_OUTPUT
         fi
 
     - name: Check if Docker image exists
