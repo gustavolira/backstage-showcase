@@ -82,7 +82,7 @@ test.describe.serial("Link Scaffolded Templates to Catalog Items", () => {
     await uiHelper.clickButton("Create");
     await page.waitForTimeout(5000);
     await uiHelper.clickLink("Open in catalog");
-    console.log("teste");
+    console.log("test2");
   });
 
   test("Verify Scaffolded link in components Dependencies and scaffoldedFrom relation in entity Raw Yaml ", async () => {
