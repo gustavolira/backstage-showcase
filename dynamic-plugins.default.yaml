@@ -1010,7 +1010,7 @@ plugins:
                   layout:
                     gridColumnEnd:
                       md: "span 6"
-                      xs: "span 12"
+                      xs: "span 14"
                   if:
                     allOf:
                       - isLighthouseAvailable
